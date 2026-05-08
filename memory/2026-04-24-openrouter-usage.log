@@ -1,0 +1,28 @@
+# OpenRouter Usage Report — 2026-04-24 15:38
+
+## 📊 Current Status
+- **Total Credit Limit:** $20.8
+- **Credits Used:** $15.463791026
+- **Credits Remaining:** $5.336208974
+- **Daily Usage:** $2.524163792
+- **Weekly Usage:** $12.723437302
+- **Percentage Used:** 74.00%
+- **Percentage Remaining:** 25.00%
+
+## ⚠️ Alerts & Recommendations
+⚠️ **WARNING:** 50%+ of credits used. $5.336208974 remaining.
+   - Consider optimizing model usage
+   - Daily spend should be ~$.76 to last the month
+
+## 💰 Daily Budget Analysis
+- **Day of month:** 24/30
+- **Ideal daily spend:** $.69
+- **Actual daily spend:** $2.524163792
+- **Days remaining:** 7
+- **Budget per remaining day:** $.76
+
+📉 **OVERSHOOT:** Daily spend ($2.524163792) exceeds budget ($.76)
+   - Reduce usage or credits will run out before month end
+
+---
+*Report generated at Fri Apr 24 15:38:31 UTC 2026*

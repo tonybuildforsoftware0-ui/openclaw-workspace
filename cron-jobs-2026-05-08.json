@@ -1,0 +1,310 @@
+{
+  "jobs": [
+    {
+      "id": "2417dd1c-21c5-4181-94da-8874ae2438c1",
+      "name": "daily-maintenance",
+      "enabled": true,
+      "createdAtMs": 1778252655710,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 4 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "openclaw update --yes && openclaw gateway restart && echo 'Maintenance completed at $(date)' | openclaw message send --channel telegram --target default"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "to": "telegram:telegram:8352035436"
+      },
+      "state": {
+        "nextRunAtMs": 1778313600000,
+        "lastRunAtMs": 1778252673999,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 55239,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1778252729238
+    },
+    {
+      "id": "01915afd-ec78-445a-84de-f87d366fffeb",
+      "agentId": "main",
+      "name": "daily-backup",
+      "enabled": true,
+      "createdAtMs": 1778254581476,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 4 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Use the exec tool to run: bash /root/.openclaw/workspace/scripts/daily-backup.sh"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "to": "telegram:telegram:8352035436"
+      },
+      "state": {
+        "nextRunAtMs": 1778315400000
+      },
+      "updatedAtMs": 1778254581476
+    },
+    {
+      "id": "5d2c5066-5402-4dcf-ae33-ba506dc0aa06",
+      "agentId": "volt",
+      "name": "github-daily-drops-v4",
+      "enabled": true,
+      "createdAtMs": 1777501729761,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are Volt. Each day at 6:00 AM America/New_York, produce a GitHub Daily Drops report for Tony following this exact procedure:\n\n1. PREPARATION:\n   - Read all memory files in /root/.openclaw/workspace/volt/memory/ (especially recent YYYY-MM-DD.md).\n   - Read recent conversation history in this topic (telegram:-1003927866195?topic_id=103) for the last 10 messages.\n   - From this, infer Tony's current work areas, friction points, and goals (building tech stack, learn-by-doing, no fluff, build things that actually work and last).\n\n2. SMARTER SOURCING (gather candidate repos from):\n   - Primary: https://github.com/trending?since=daily\n   - HackerNews: Show HN posts from last 24h (https://news.ycombinator.com/show)\n   - Dev.to: trending this week (https://dev.to/trending/week)\n   - Reddit: r/programming, r/selfhosted, r/MachineLearning top posts today (via https://www.reddit.com/r/programming/top.json?t=day etc.)\n   - Any repo appearing in ≥2 sources gets priority signal.\n\n3. SMARTER PICKING CHECKLIST (apply to every candidate repo):\n   - Is it NEW to trending? If trending >48h, skip.\n   - Is spike organic? Note source; skip if clearly artificial (single viral tweet/HN post without broader engagement).\n   - Is it usable now? Skip vaporware (no code, only README/idea).\n   - Recent commits? Must have commit in last 30 days unless historically significant.\n   - Would Tony actually care? Skip if technically impressive but useless to his life (e.g., niche academic toy).\n\n4. SELECT 8 REPOS:\n   - #1-3: Top 3 repos with biggest spike in new stars TODAY (from filtered list).\n   - #4-5: Top 2 repos getting most buzz/forks/issues/community talk TODAY (from filtered list).\n   - #6-8: 🎯 PICKED FOR YOU TODAY: 3 repos selected by reasoning:\n        * What is Tony trying to build/solve right now? (from memory)\n        * What's his biggest friction point?\n        * What tool would save him most time or unblock him fastest?\n        * Find repos that answer those questions directly (not necessarily trending).\n        * If memory unclear, use last 10 messages in topic for signals.\n\n5. EXCLUSIONS (never include):\n   - All-time top starred repos (React, freeCodeCamp, VS Code, Linux, etc.).\n   - Repos Tony is clearly using: smart-bank-system, 8pool-club-project, advanced-data-structure-implementation, bank-project-CPP, driving-licenses-department-system, ToDo-list-project, Traffic-Light-Project, Win-Cleaner-Service, tony11-cpu.\n   - AI assistant platforms (OpenClaw, Claude, etc.).\n   - Any repo already sent (track in /root/.openclaw/workspace/volt/.github_tracking/sent_repos.txt).\n\n6. FORMAT EACH REPO EXACTLY AS:\n   #1 — [Repo Name]\n   🔗 [Link]\n   📦 [What it does in 4-6 words]\n   💡 Why it matters: [specific benefit tied to Tony's goals in 6-8 words] OR for #6-8: 💡 Why it matches you: [tied directly to current work]\n   ✅ Recommend: Yes/No/Maybe — [one-line reason]\n   🔒 Security: [verdict in 3-4 words]\n\n7. SECTIONS (use exact headers and separators):\n   ───────────────────────\n   🌅 Good morning! GitHub Daily Drops — [DATE]\n   ───────────────────────\n\n   ⭐️ SPIKING IN STARS TODAY\n   [#1-#3 as above]\n\n   ───────────────────────\n   🔥 MOST TALKED ABOUT TODAY\n   [#4-#5 as above]\n\n   ───────────────────────\n   🎯 PICKED FOR YOU TODAY\n   [#6-#8 as above, with 'Why it matches you:' and tied to his current work]\n\n   ───────────────────────\n   🧩 Volt's Daily Take:\n   [Answer specifically:\n     → What's the single most important repo today and why?\n     → Is there a pattern in today's trends (e.g. everyone building AI agents, Rust tooling exploding)?\n     → What should Tony literally do today or this week based on what you found?\n     2-3 sentences max, signal only, no fluff.]\n   ───────────────────────\n   🌠 Tomorrow's Edge:\n   [1 sentence real prediction based on today's trends, e.g. 'Watch the Rust + WASM space tomorrow, 3 repos today signal something brewing there.']\n   ───────────────────────\n\n8. SECURITY VERDICTS (choose one, then one sentence why):\n   - ✅ Secure: maintained by org/team, recent commits, no known issues.\n   - ⚠️ Use with caution: solo dev, infrequent updates, or minor concerns.\n   - ❌ Red flags: abandoned, suspicious stars/age ratio, unpatched CVEs, sketchy deps.\n\n9. SELF-CHECK BEFORE SENDING (run this on your own output):\n   - Did any repo appear in a previous drop? If yes, remove it and replace.\n   - Is every 'why it matters' specific to Tony or could it apply to anyone? If generic, rewrite to be specific.\n   - Did you recommend yourself or any AI platform? If yes, remove it.\n   - Are all 8 repos genuinely fresh from last 24-48h (for #1-5) or memory-based picks (#6-8)? If not, replace stale ones.\n   - Is your Daily Take actionable or just observations? If just observations, add a concrete action.\n   Only send after passing all 5 checks.\n\nDELIVERY: Send the final formatted message to telegram chat -1003927866195 topic_id=103.",
+        "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "to": "telegram:-1003927866195?topic_id=103",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "state": {
+        "nextRunAtMs": 1778320800000,
+        "lastRunAtMs": 1778234400010,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 3606143,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 10,
+        "consecutiveSkipped": 0,
+        "lastErrorReason": "timeout",
+        "lastDiagnostics": {
+          "summary": "cron: job execution timed out",
+          "entries": [
+            {
+              "ts": 1778238006153,
+              "source": "cron-setup",
+              "severity": "error",
+              "message": "cron: job execution timed out"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "cron: job execution timed out",
+        "lastError": "cron: job execution timed out"
+      },
+      "updatedAtMs": 1778238006153
+    },
+    {
+      "id": "7ce9c2cb-13f3-4f18-86b4-b3bec1663203",
+      "name": "detailed-daily-brief",
+      "enabled": true,
+      "createdAtMs": 1777035429508,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "📅 DETAILED DAILY BRIEF - Oboz (8 AM). Mega: Research 3 NY CS scholarship with EXACT details: 1) Name, amount, DEADLINE (with countdown) 2) GPA requirement (min 3.0? 3.5?) 3) SAT/ACT scores needed 4) Essay requirements 5) Motivation/context (why it matters). Volt: Research 4 tech update with: 1) Company, date, impact 2) Technical details 3) Source link. I combine into ONE detailed text message (15-30 lines) for Tony. Include LINKS to sources. NO PDFs. Use FREE model. Focus on ACTIONABLE details for NY high school CS student.",
+        "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "agentId": "main",
+      "state": {
+        "nextRunAtMs": 1778328000000,
+        "lastRunAtMs": 1778241600015,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 273365,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDelivered": true
+      },
+      "updatedAtMs": 1778241873380
+    },
+    {
+      "id": "f7aa54a2-d0f3-4cec-991c-e8f64fb86374",
+      "name": "readme-audit",
+      "enabled": true,
+      "createdAtMs": 1776799517541,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 0",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Check README status for tony11-cpu repos. Use FREE model. For each repo: check if README exists and not empty. Flag only completely missing/empty. Don't write READMEs (that's DeepSeek). Just identify which repos need README work.Send Telegram:README audit flagged repos: [list if any]No analysis needed, just identification.",
+        "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "agentId": "volt",
+      "state": {
+        "nextRunAtMs": 1778418000000,
+        "lastRunAtMs": 1777813200015,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 177761,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1777813377776
+    },
+    {
+      "id": "81fb6be0-953a-476e-85f2-a59373e9235a",
+      "name": "github-weekly-self-update",
+      "enabled": true,
+      "createdAtMs": 1776800600325,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 19 * * 0",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Weekly self-improvement analysis. Use DEEPSEEK model. Steps: 1) Read ~/.openclaw/learning/code-patterns.md — top issues this week 2) Read ~/.openclaw/learning/feedback.md — Tony's reactions 3) Read ~/.openclaw/learning/stack-evolution.md — new tech detected 4) Read ~/.openclaw/learning/model-usage.md — DeepSeek overuse? 5) Update ~/.openclaw/AGENTS.md with learnings 6) Adjust review style, briefing content, message format 7) Send Telegram: '(system) weekly self-update — [what changed, what learned, routing adjustments]'Use DEEPSEEK for this multi-step reasoning task.",
+        "model": "openrouter/deepseek/deepseek-v3.2",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "agentId": "volt",
+      "state": {
+        "nextRunAtMs": 1778454000000,
+        "lastRunAtMs": 1777849200014,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 218494,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1777849418508
+    },
+    {
+      "id": "d4f0a53c-7d44-484a-9878-25fbc52466d9",
+      "agentId": "main",
+      "sessionKey": "agent:main:telegram:group:-1003927866195:topic:1",
+      "name": "skill-vetter-monthly",
+      "enabled": true,
+      "createdAtMs": 1777507092201,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 2 1 * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run security audit on all installed skills using skill-vetter skill. List all skills in /root/.openclaw/workspace/skills and /usr/lib/node_modules/openclaw/skills. For each skill, check: 1) source and reputation, 2) red flags in code, 3) permission scope, 4) risk classification. Output summary report with any high-risk skills flagged. Send report to Telegram.",
+        "model": "openrouter/deepseek/deepseek-v4-flash",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "state": {
+        "nextRunAtMs": 1780293600000,
+        "lastRunAtMs": 1777615200259,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 806394,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1777616006653
+    }
+  ],
+  "total": 7,
+  "offset": 0,
+  "limit": 7,
+  "hasMore": false,
+  "nextOffset": null,
+  "deliveryPreviews": {
+    "2417dd1c-21c5-4181-94da-8874ae2438c1": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "01915afd-ec78-445a-84de-f87d366fffeb": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "5d2c5066-5402-4dcf-ae33-ba506dc0aa06": {
+      "label": "announce -> telegram:-1003927866195?topic_id=103",
+      "detail": "explicit"
+    },
+    "7ce9c2cb-13f3-4f18-86b4-b3bec1663203": {
+      "label": "announce -> telegram:telegram:8352035436",
+      "detail": "explicit"
+    },
+    "f7aa54a2-d0f3-4cec-991c-e8f64fb86374": {
+      "label": "announce -> telegram:telegram:8352035436",
+      "detail": "explicit"
+    },
+    "81fb6be0-953a-476e-85f2-a59373e9235a": {
+      "label": "announce -> telegram:telegram:8352035436",
+      "detail": "explicit"
+    },
+    "d4f0a53c-7d44-484a-9878-25fbc52466d9": {
+      "label": "announce -> telegram:telegram:-1003927866195",
+      "detail": "explicit"
+    }
+  }
+}
