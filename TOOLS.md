@@ -1,0 +1,235 @@
+# TOOLS.md - Local Notes
+
+Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+
+## What Goes Here
+
+Things like:
+
+- Camera names and locations
+- SSH hosts and aliases
+- Preferred voices for TTS
+- Speaker/room names
+- Device nicknames
+- Anything environment-specific
+
+## Examples
+
+```markdown
+### Cameras
+
+- living-room → Main area, 180° wide angle
+- front-door → Entrance, motion-triggered
+
+### SSH
+
+- home-server → 192.168.1.100, user: admin
+
+### TTS
+
+- Preferred voice: "Nova" (warm, slightly British)
+- Default speaker: Kitchen HomePod
+```
+
+### Zapier MCP ⚡️
+- **Connected:** 2026-04-19
+- **Token:** `/root/.openclaw/credentials/zapier-mcp.json`
+- **Capabilities:**
+  - 📄 **Docs** – Create/edit Google Docs, generate reports
+  - ▶️ **YouTube** – Search videos, get metadata
+  - 📁 **Google Drive** – Read/write files, manage folders
+  - 🔄 **4000+ apps** – Any Zapier-connected service
+
+**Morning Brief Setup:**
+- **Tech/AI/Colleges brief** – Runs daily at 09:00 EST via cron
+- **Email check** – Auto-fetches via Agentmail API Key (no prompting)
+- **Cron configured:** `*/30 * * * * /usr/bin/openclaw heartbeat`
+
+**Remember: Use Zapier MCP for:**
+- Cross-app automation (docs + drive)
+- YouTube research and video metadata
+  - Gmail compose/search - Use this instead of asking for email!
+- File management in Drive
+
+## Why Separate?
+
+Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+
+---
+
+Add whatever helps you do your job. This is your cheat sheet.
+
+### College Monitoring Gmail 🎓 (Dedicated Account - IMAP ACCESS)
+- **Access Method:** Agentmail API Key "[AGENTMAIL_API_KEY]"
+- **Purpose:** College/scholarship monitoring for NY universities
+- **Monitoring Targets:**
+  - Scholarships in New York (merit-based, need-based)
+  - NYU, Columbia, CUNY, SUNY admissions updates
+  - Application deadlines & requirements
+  - Extracurricular opportunities for college apps
+  - High school to college transition programs
+
+**Use this for:**
+- College opportunity monitoring (every 6h cron)
+- Scholarship deadline tracking (daily digest 8pm)
+- University email subscriptions (NY-focused)
+- All education-related email automation
+
+**Security Notes:**
+- Credentials stored securely (root only)
+- Use for college/scholarship tasks only
+- No personal data in this account
+- Operational resource for college goals
+- IMAP access only - no OAuth setup needed
+
+### QMD Hybrid Search Engine 🔍
+- **Installed:** 2026-04-26
+- **Binary:** `/usr/bin/qmd` (version 2.1.0)
+- **Cache location:** `~/.cache/qmd/`
+- **Index location:** `~/.cache/qmd/index.sqlite`
+- **Models (downloaded):** `~/.cache/qmd/models/` (embeddinggemma-300M, qmd-query-expansion-1.7B, Qwen3-Reranker-0.6B pending)
+- **Collection:** `openclaw` (covers workspace)
+- **Context:** Global and collection-specific added
+
+**Use this for:**
+- Finding any local file before asking the user
+- Searching across all workspace markdown files (SOUL.md, AGENTS.md, TOOLS.md, HEARTBEAT.md, memory)
+- Semantic, keyword, and hybrid queries
+- Retrieving full document content with `qmd get #docid`
+
+**Commands:**
+- `qmd search "keyword" -n 5` – fast keyword search
+- `qmd vsearch "concept" -n 5` – semantic vector search
+- `qmd query "natural language question" -n 5` – hybrid search with reranking
+- `qmd get "#docid"` – retrieve document
+- `qmd status` – check index state
+- `qmd update` – re‑index changed files
+- `qmd embed` – regenerate vectors after updates
+
+**Permanent Rules:**
+- Before asking "where is...", RUN QMD FIRST.
+- When new files/folders added, run `qmd update && qmd embed`.
+- Use `--json` when passing results to other tools.
+
+
+### AgentMail 📧 (API-First Email Platform)
+- **Connected:** 2026-04-27
+- **API Key:** [AGENTMAIL_API_KEY]
+- **Base URL:** https://api.agentmail.to/v0
+- **Inbox ID:** openclawmainemail@agentmail.to
+- **Display Name:** Openclaw Main Agent Mail
+- **Status:** Active - emails sent/received successfully
+- **Python SDK:** Installed in `/tmp/agentmail-venv/` (`pip install agentmail`)
+
+**College Monitoring Targets (Subscription Requests Sent):**
+- ✅ `news@stonybrook.edu` - SBU News Newsletter (Tuesday/Friday)
+- ✅ `alumni@stonybrook.edu` - SB Matters alumni newsletter
+- ✅ `admissions@ccny.cuny.edu` - City College undergraduate admissions
+- ✅ `graduateadmissions@ccny.cuny.edu` - City College graduate admissions
+- ❌ `cunynews@cuny.edu` - BLOCKED (bounces automated emails)
+
+**Automation Stack:**
+- **Python Virtual Environment:** `/tmp/agentmail-venv/bin/python`
+- **Dependencies:** AgentMail SDK, httpx, pydantic, websockets
+- **Script Location:** `~/.openclaw/workspace/skills/agentmail/scripts/`
+
+**Security Notes:**
+- ⚠️ **Webhook Security Required**: Incoming email = prompt injection vector
+- **Solution**: Implement allowlist filter per AgentMail skill documentation
+- **Isolate**: Review untrusted emails in separate session before acting
+- **Credentials**: API key provides full access to inbox - protect accordingly
+
+**Usage for Future Agents:**
+1. Use API key from this TOOLS.md section
+2. Import: `from agentmail import AgentMail`
+3. Initialize: `client = AgentMail(api_key = "[REDACTED]")`
+4. Send: `client.inboxes.messages.send(inbox_id="openclawmainemail@agentmail.to", ...)`
+5. Monitor for college/scholarship emails in inbox
+
+### Desktop Automation 🖥️ (PyAutoGUI)
+- **Installed:** 2026-04-27
+- **Virtual Environment:** `/tmp/desktop-automation/`
+- **Dependencies:** `pyautogui`, `pillow`, `opencv-python`, `pygetwindow`
+- **Purpose:** Web form automation for university newsletter subscriptions
+- **Status:** ✅ Xvfb installed, headless browser automation ready
+- **Display Solution:** ✅ Xvfb installed, using Selenium with headless Chrome
+
+**University Web Forms (Require Browser Automation):**
+- **Stony Brook News:** https://news.stonybrook.edu/subscribe-to-news/
+- **Stony Brook Alumni:** https://sbmatters.stonybrook.edu/subscribe/
+- **CCNY News:** https://www.ccny.cuny.edu/news (find subscribe form)
+- **Forms Use:** Mailchimp, Contact Form 7, custom WordPress forms
+
+**Next Automation Steps:**
+1. ✅ **Xvfb installed**: Virtual display ready for headless automation
+2. ✅ **Chrome & Selenium installed**: Headless browser automation configured
+3. ✅ **Automation script created**: `scripts/university_form_automation.py`
+4. **Map form field coordinates**: Requires manual inspection of university forms
+5. **Implement form submission**: Fill with AgentMail email and submit
+6. **Schedule periodic attempts**: Add to cron for regular form submission
+
+### Webhook Security 🔒
+- **Status**: Implemented (script ready), needs deployment
+- **Script**: `scripts/agentmail_webhook.py`
+- **Allowlist**: College domains and specific emails configured
+- **Verification**: Signature validation with secret (optional)
+- **Deployment**: Requires public URL with HTTPS (pending)
+- **Alternative**: Use 6-hour inbox check for now
+
+### College Monitoring Cron Jobs ⏰
+- **Inbox Check**: Every 6 hours (`30 */6 * * *`)
+- **Script**: `scripts/agentmail_check_cron.sh`
+- **Logs**: `/root/.openclaw/workspace/logs/agentmail_check.log`
+- **Memory Updates**: Auto-logs to daily memory files
+- **Status**: ✅ Active and tested
+
+### Self‑Improvement Activation 🧠
+- **Status**: ✅ Active
+- **Directory**: `workspace/.learnings/`
+- **Files**: `LEARNINGS.md`, `ERRORS.md`, `FEATURE_REQUESTS.md`
+- **Hook**: Internal self-improvement hook enabled in config
+- **Usage**: Automatic logging of corrections and learnings
+
+### Dozzle 🐳 (Docker Log Viewer)
+- **Deployed:** 2026-05-06
+- **Container:** `dozzle-lf0i-dozzle-1`
+- **Image:** `amir20/dozzle:v9.0.1`
+- **Port:** `0.0.0.0:32768->8080/tcp`
+- **Access URL:** http://localhost:32768
+- **Authentication:** Username: `admin`, Password: `securepassword123` (HTTP Basic Auth)
+- **Purpose:** Real-time Docker container log viewing and monitoring
+- **Features:**
+  - Live log streaming
+  - Container filtering
+  - Log search
+  - Multiple container support
+  - Dark/light themes
+  - HTTP Basic Authentication enabled
+
+**Use this for:**
+- Monitoring OpenClaw and other container logs
+- Debugging container issues
+- Real-time log observation
+- Quick container status checks
+
+### Uptime Kuma 📊 (Monitoring Tool)
+- **Deployed:** 2026-05-06
+- **Container:** `uptime-kuma-9ci2-uptime-kuma-1`
+- **Image:** `louislam/uptime-kuma:2`
+- **Port:** `0.0.0.0:65020->3001/tcp`
+- **Access URL:** http://localhost:65020
+- **Authentication:** Username: `admin`, Password: `admin123` (Form-based login)
+- **Purpose:** Self-hosted monitoring service for uptime, response times, and service health
+- **Features:**
+  - HTTP(s)/TCP/Ping/DNS monitoring
+  - Response time tracking
+  - Notification integrations (Telegram, Discord, Email, etc.)
+  - Customizable status pages
+  - Historical data and analytics
+
+**Use this for:**
+- Monitoring OpenClaw service availability
+- Tracking response times and performance
+- Setting up alerts for service downtime
+- Creating public status pages
+- Monitoring external services (websites, APIs, etc.)
