@@ -1,0 +1,404 @@
+{
+  "jobs": [
+    {
+      "id": "01915afd-ec78-445a-84de-f87d366fffeb",
+      "agentId": "main",
+      "name": "daily-backup",
+      "enabled": true,
+      "createdAtMs": 1778254581476,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 4 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Use the exec tool to run: /root/.openclaw/workspace/scripts/daily-backup.sh"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436"
+      },
+      "state": {
+        "nextRunAtMs": 1778661000000,
+        "lastRunAtMs": 1778574600007,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 21819,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "runningAtMs": 1778661000011
+      },
+      "updatedAtMs": 1778596064661,
+      "status": "running"
+    },
+    {
+      "id": "5c30e452-20bd-4120-a2ee-42ef9e9b16aa",
+      "name": "Checking NYU summer cybersecurity scholarship",
+      "enabled": true,
+      "createdAtMs": 1778425546375,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "main",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "Checking NYU summer cybersecurity scholarship"
+      },
+      "state": {
+        "nextRunAtMs": 1778666400000,
+        "lastRunAtMs": 1778580032739,
+        "lastRunStatus": "skipped",
+        "lastStatus": "skipped",
+        "lastDurationMs": 1,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 2,
+        "lastError": "disabled"
+      },
+      "updatedAtMs": 1778580032740,
+      "status": "skipped"
+    },
+    {
+      "id": "5d2c5066-5402-4dcf-ae33-ba506dc0aa06",
+      "agentId": "volt",
+      "name": "github-daily-drops-v4",
+      "enabled": true,
+      "createdAtMs": 1777501729761,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are Volt. Daily GitHub Drops for Tony. Produce a concise report under 700 words. Use GitHub Trending Daily only. Pick at most 5 repos: 2 fast-rising, 2 most useful, 1 personal pick for Tony. For each: repo name, one-line purpose, why Tony should care, link. Do not read memory/chat history. Do not send manually; cron delivery handles Telegram.",
+        "model": "openai-codex/gpt-5.4-mini",
+        "lightContext": true,
+        "thinking": "medium",
+        "timeoutSeconds": 900
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "state": {
+        "nextRunAtMs": 1778666400000,
+        "lastRunAtMs": 1778580000008,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 32731,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDelivered": true
+      },
+      "updatedAtMs": 1778580032739,
+      "status": "ok"
+    },
+    {
+      "id": "7ce9c2cb-13f3-4f18-86b4-b3bec1663203",
+      "name": "daily-brief-nyc-scholarship-stem-optimized",
+      "enabled": true,
+      "createdAtMs": 1777035429508,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "📅 Daily brief for Tony. Keep under 650 words and be high-signal. Tony profile: NYC default, high-school junior, strong/very good GPA, tech/STEM/coding/software/engineering focus; keep school matching general until more profile data exists. Include: 1) Best-fit scholarships: 1–2 strong NY/NYC-first tech/STEM, merit, high-GPA, or junior/senior-friendly scholarships from Tony's source stack when relevant (Fastweb, Naviance, Sallie merit-based, NY HESC/Excelsior, Niche, BigFuture, Scholarships360, CareerOneStop). For each scholarship include: deadline, eligibility fit, amount if known, source/application link, login/account required, and a compact “how to get it” plan with requirements, materials to prepare, application path, and 1–3 next steps to improve Tony's chance. 2) NYC-area tech/STEM opportunity: 1–2 programs, courses, internships, or pre-college opportunities from NYC-area universities/colleges only by default; prioritize coding, software building, engineering, research/projects, job-ready skills, and CV value before college. 3) 3-item action checklist. To save credits: do a focused scan, rotate sources across days, avoid exhaustive browsing, and only include the best options. No PDFs, no filler, no account creation, no forms/emails. Do not send manually; cron delivery handles Telegram.",
+        "model": "openai-codex/gpt-5.4-mini",
+        "lightContext": true,
+        "thinking": "medium",
+        "timeoutSeconds": 900
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "agentId": "mega",
+      "state": {
+        "nextRunAtMs": 1778673600000,
+        "lastRunAtMs": 1778587200010,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 171009,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDelivered": true
+      },
+      "updatedAtMs": 1778600582816,
+      "status": "ok"
+    },
+    {
+      "id": "2417dd1c-21c5-4181-94da-8874ae2438c1",
+      "name": "daily-maintenance",
+      "enabled": true,
+      "createdAtMs": 1778252655710,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 4 * * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Daily maintenance check. Do NOT run openclaw update from inside the gateway process tree. Instead: check gateway status, run openclaw update status, run openclaw security audit, and summarize any action needed for Tony. Keep it concise. If an update is available, say it must be run from an external shell outside the live gateway."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436"
+      },
+      "state": {
+        "nextRunAtMs": 1778745600000,
+        "lastRunAtMs": 1778659200013,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 68788,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1778659268801,
+      "status": "ok"
+    },
+    {
+      "id": "f7aa54a2-d0f3-4cec-991c-e8f64fb86374",
+      "name": "readme-audit",
+      "enabled": true,
+      "createdAtMs": 1776799517541,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 0",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Check README status for tony11-cpu repos. For each repo: check if README exists and is not empty. Flag only completely missing/empty. Do not write READMEs. Keep the result concise and send: README audit flagged repos: [list if any].",
+        "model": "openai-codex/gpt-5.4-mini",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "agentId": "volt",
+      "state": {
+        "nextRunAtMs": 1779022800000,
+        "lastRunAtMs": 1778418000013,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 23169,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1778418023182,
+      "status": "ok"
+    },
+    {
+      "id": "c4961ea6-fe0e-4018-a4cd-2c36875aed04",
+      "agentId": "mega",
+      "sessionKey": "agent:main:telegram:direct:8352035436",
+      "name": "mega-weekly-nyc-scholarship-stem-sweep",
+      "enabled": true,
+      "deleteAfterRun": false,
+      "createdAtMs": 1778597608451,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 0",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are Mega. Weekly scholarship + NYC STEM opportunity sweep for Tony. Tony profile: NYC default, high-school junior, strong/very good GPA, tech/STEM/coding/software/engineering focus; keep matching general until more profile data exists. Use Tony's scholarship source stack: Fastweb, Naviance, Sallie merit-based, NY HESC/Excelsior, Niche, College Board BigFuture, Scholarships360 weird scholarships, and CareerOneStop. Output under 900 words. Include: A) up to 5 strongest scholarship/grant/merit-aid opportunities, prioritizing NY/NYC, tech/STEM, high-GPA, junior/senior-friendly, legit deadlines, and low-friction applications. For each: name, amount if known, deadline, eligibility fit, link, login/account required, and a practical “how to get it” plan: requirements, materials Tony needs, application path, preparation order, and 1–3 next steps to improve his chance. B) up to 4 NYC-area university/college programs/courses/internships/pre-college opportunities that build coding, software, engineering, research/projects, job-ready skills, and CV strength. NYC/nearby colleges only unless no good options. To save credits: focused search, no exhaustive browsing, rotate sources, avoid repeated items from recent brief if possible. Do not create accounts, submit forms, send emails, or include filler. Do not send manually; cron delivery handles Telegram.",
+        "model": "openai-codex/gpt-5.4-mini",
+        "lightContext": true,
+        "thinking": "medium",
+        "timeoutSeconds": 1200
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1779026400000
+      },
+      "updatedAtMs": 1778600600451,
+      "status": "idle"
+    },
+    {
+      "id": "81fb6be0-953a-476e-85f2-a59373e9235a",
+      "name": "github-weekly-self-update",
+      "enabled": true,
+      "createdAtMs": 1776800600325,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 19 * * 0",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Weekly self-improvement analysis. Use DEEPSEEK model. Steps: 1) Read ~/.openclaw/learning/code-patterns.md — top issues this week 2) Read ~/.openclaw/learning/feedback.md — Tony's reactions 3) Read ~/.openclaw/learning/stack-evolution.md — new tech detected 4) Read ~/.openclaw/learning/model-usage.md — DeepSeek overuse? 5) Update ~/.openclaw/AGENTS.md with learnings 6) Adjust review style, briefing content, message format 7) Send Telegram: '(system) weekly self-update — [what changed, what learned, routing adjustments]'Use DEEPSEEK for this multi-step reasoning task.",
+        "model": "openrouter/deepseek/deepseek-v3.2",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "agentId": "volt",
+      "state": {
+        "nextRunAtMs": 1779058800000,
+        "lastRunAtMs": 1778454000008,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 65405,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDiagnostics": {
+          "summary": "⚠️ ✉️ Message failed",
+          "entries": [
+            {
+              "ts": 1778454065375,
+              "source": "tool",
+              "severity": "error",
+              "message": "⚠️ ✉️ Message failed"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "⚠️ ✉️ Message failed"
+      },
+      "updatedAtMs": 1778454065413,
+      "status": "ok"
+    },
+    {
+      "id": "d4f0a53c-7d44-484a-9878-25fbc52466d9",
+      "agentId": "main",
+      "sessionKey": "agent:main:telegram:group:-1003927866195:topic:1",
+      "name": "skill-vetter-monthly",
+      "enabled": true,
+      "createdAtMs": 1777507092201,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 2 1 * *",
+        "tz": "America/New_York"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run security audit on all installed skills using skill-vetter skill. List all skills in /root/.openclaw/workspace/skills and /usr/lib/node_modules/openclaw/skills. For each skill, check: 1) source and reputation, 2) red flags in code, 3) permission scope, 4) risk classification. Output summary report with any high-risk skills flagged. Send report to Telegram.",
+        "model": "openrouter/deepseek/deepseek-v4-flash",
+        "lightContext": true,
+        "thinking": "medium"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "8352035436",
+        "bestEffort": false
+      },
+      "deleteAfterRun": false,
+      "state": {
+        "nextRunAtMs": 1780293600000,
+        "lastRunAtMs": 1777615200259,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 806394,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "updatedAtMs": 1778352383957,
+      "status": "ok"
+    }
+  ],
+  "total": 9,
+  "offset": 0,
+  "limit": 9,
+  "hasMore": false,
+  "nextOffset": null,
+  "deliveryPreviews": {
+    "01915afd-ec78-445a-84de-f87d366fffeb": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "5c30e452-20bd-4120-a2ee-42ef9e9b16aa": {
+      "label": "not requested",
+      "detail": "not requested"
+    },
+    "5d2c5066-5402-4dcf-ae33-ba506dc0aa06": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "7ce9c2cb-13f3-4f18-86b4-b3bec1663203": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "2417dd1c-21c5-4181-94da-8874ae2438c1": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "f7aa54a2-d0f3-4cec-991c-e8f64fb86374": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "c4961ea6-fe0e-4018-a4cd-2c36875aed04": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "81fb6be0-953a-476e-85f2-a59373e9235a": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    },
+    "d4f0a53c-7d44-484a-9878-25fbc52466d9": {
+      "label": "announce -> telegram:8352035436",
+      "detail": "explicit"
+    }
+  }
+}
