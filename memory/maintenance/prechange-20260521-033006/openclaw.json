@@ -1,0 +1,560 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "/root/.openclaw/workspace",
+      "models": {
+        "openrouter/openai/gpt-oss-120b:free": {},
+        "openrouter/nvidia/nemotron-3-super-120b-a12b:free": {},
+        "openrouter/qwen/qwen3-coder-480b-a35b-instruct:free": {},
+        "openrouter/qwen/qwen3-coder-480b-a35b-instruct": {},
+        "openrouter/deepseek/deepseek-v3.2": {},
+        "openrouter/deepseek/deepseek-v4-flash": {},
+        "openrouter/google/gemma-4-31b-it:free": {},
+        "openrouter/meta-llama/llama-4-maverick:free": {},
+        "openrouter/auto": {
+          "alias": "OpenRouter"
+        },
+        "openai/gpt-5.4-mini": {
+          "agentRuntime": {
+            "id": "codex"
+          }
+        },
+        "openai/gpt-5.5": {
+          "agentRuntime": {
+            "id": "codex"
+          }
+        }
+      },
+      "model": {
+        "primary": "openai/gpt-5.4-mini",
+        "fallbacks": [
+          "openai/gpt-5.5",
+          "openrouter/owl-alpha:free",
+          "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+          "openrouter/qwen/qwen3-coder-480b-a35b-instruct:free"
+        ]
+      },
+      "sandbox": {
+        "mode": "off"
+      },
+      "contextInjection": "always",
+      "bootstrapMaxChars": 20000,
+      "bootstrapTotalMaxChars": 150000
+    },
+    "list": [
+      {
+        "id": "main",
+        "model": {
+          "primary": "openai/gpt-5.4-mini",
+          "fallbacks": [
+            "openai/gpt-5.5",
+            "openrouter/owl-alpha:free",
+            "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+            "openrouter/qwen/qwen3-coder-480b-a35b-instruct:free"
+          ]
+        },
+        "models": {
+          "openai/gpt-5.4-mini": {
+            "agentRuntime": {
+              "id": "codex"
+            }
+          },
+          "openai/gpt-5.5": {
+            "agentRuntime": {
+              "id": "codex"
+            }
+          }
+        },
+        "tools": {
+          "profile": "full"
+        }
+      },
+      {
+        "id": "volt",
+        "model": {
+          "primary": "openai/gpt-5.5",
+          "fallbacks": [
+            "openai/gpt-5.4-mini",
+            "openrouter/owl-alpha:free",
+            "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+            "openrouter/qwen/qwen3-coder-480b-a35b-instruct:free"
+          ]
+        },
+        "models": {
+          "openai/gpt-5.5": {
+            "agentRuntime": {
+              "id": "codex"
+            }
+          },
+          "openai/gpt-5.4-mini": {
+            "agentRuntime": {
+              "id": "codex"
+            }
+          }
+        },
+        "heartbeat": {
+          "every": "6h"
+        },
+        "tools": {
+          "profile": "coding",
+          "alsoAllow": [
+            "browser",
+            "canvas",
+            "message",
+            "heartbeat_respond",
+            "nodes",
+            "agents_list",
+            "tavily_extract",
+            "tavily_search"
+          ],
+          "deny": [
+            "gateway"
+          ]
+        }
+      },
+      {
+        "id": "mega",
+        "model": {
+          "primary": "openai/gpt-5.5",
+          "fallbacks": [
+            "openai/gpt-5.4-mini",
+            "openrouter/owl-alpha:free",
+            "openrouter/nvidia/nemotron-3-super-120b-a12b:free"
+          ]
+        },
+        "models": {
+          "openai/gpt-5.5": {
+            "agentRuntime": {
+              "id": "codex"
+            }
+          },
+          "openai/gpt-5.4-mini": {
+            "agentRuntime": {
+              "id": "codex"
+            }
+          }
+        },
+        "heartbeat": {
+          "every": "6h"
+        },
+        "tools": {
+          "profile": "coding",
+          "alsoAllow": [
+            "heartbeat_respond",
+            "message",
+            "browser",
+            "canvas",
+            "nodes",
+            "agents_list"
+          ],
+          "deny": [
+            "gateway"
+          ]
+        }
+      }
+    ]
+  },
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "bind": "lan",
+    "auth": {
+      "mode": "password",
+      "password": "OpenClawAgent11@",
+      "rateLimit": {
+        "maxAttempts": 10,
+        "windowMs": 60000,
+        "lockoutMs": 300000
+      }
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "controlUi": {
+      "allowedOrigins": [
+        "http://localhost:18789",
+        "http://127.0.0.1:18789",
+        "http://2.24.196.155:18789"
+      ]
+    }
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.5.18",
+    "lastTouchedAt": "2026-05-20T03:31:45.653Z"
+  },
+  "auth": {
+    "profiles": {
+      "openrouter:default": {
+        "provider": "openrouter",
+        "mode": "api_key"
+      },
+      "openai:default": {
+        "provider": "openai",
+        "mode": "api_key"
+      },
+      "openai-codex:tony.guirguis.dell@gmail.com": {
+        "provider": "openai-codex",
+        "mode": "oauth",
+        "email": "tony.guirguis.dell@gmail.com"
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-05-20T03:31:34.579Z",
+    "lastRunVersion": "2026.5.18",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "accounts": {
+        "default": {
+          "botToken": "8752124418:AAHmjDYwUJ_UpaTIQKGtsOQ6wLDLekSDWb8",
+          "dmPolicy": "pairing",
+          "groups": {
+            "*": {
+              "requireMention": true
+            },
+            "-1003927866195": {
+              "requireMention": true
+            },
+            "-1003865331229": {
+              "requireMention": false
+            }
+          }
+        },
+        "volt": {
+          "enabled": true,
+          "groups": {
+            "*": {
+              "requireMention": true
+            },
+            "-1003927866195": {
+              "requireMention": true
+            },
+            "-1003865331229": {
+              "requireMention": true
+            }
+          },
+          "botToken": "8722450216:AAHr2w4vrhHGl0P3KVrMILP91ZBWMecgjnc"
+        },
+        "mega": {
+          "enabled": true,
+          "groups": {
+            "*": {
+              "requireMention": true
+            },
+            "-1003927866195": {
+              "requireMention": true
+            },
+            "-1003865331229": {
+              "requireMention": true
+            }
+          },
+          "botToken": "8735278537:AAG81IDvJQXU8XiIHyrEQ7s8GNuR2FwbCVI"
+        }
+      },
+      "allowFrom": [
+        "telegram:8352035436"
+      ],
+      "groupAllowFrom": [
+        "telegram:8352035436"
+      ]
+    }
+  },
+  "plugins": {
+    "allow": [
+      "telegram",
+      "openrouter",
+      "tavily",
+      "memory-core",
+      "openai",
+      "browser",
+      "codex"
+    ],
+    "entries": {
+      "openrouter": {
+        "enabled": true
+      },
+      "tavily": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "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"
+          }
+        }
+      },
+      "telegram": {
+        "enabled": true
+      },
+      "memory-core": {
+        "enabled": true
+      },
+      "openai": {
+        "enabled": true
+      },
+      "browser": {
+        "enabled": true
+      },
+      "codex": {
+        "enabled": true
+      }
+    },
+    "slots": {
+      "memory": "memory-core"
+    },
+    "bundledDiscovery": "compat"
+  },
+  "memory": {
+    "backend": "builtin"
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "discord": {
+        "enabled": false
+      },
+      "coding-agent": {
+        "enabled": true
+      },
+      "desktop-control": {
+        "enabled": true
+      },
+      "weather": {
+        "enabled": true
+      },
+      "1password": {
+        "enabled": true
+      },
+      "apple-notes": {
+        "enabled": false
+      },
+      "apple-reminders": {
+        "enabled": false
+      },
+      "bear-notes": {
+        "enabled": false
+      },
+      "blogwatcher": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "bluebubbles": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "gifgrep": {
+        "enabled": false
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "imsg": {
+        "enabled": false
+      },
+      "last30days": {
+        "enabled": true,
+        "apiKey": "xnl7gAuRaRWMpuekWuzGk2PYAPQ2"
+      },
+      "model-usage": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "notion": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-whisper": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": false
+      },
+      "openhue": {
+        "enabled": false
+      },
+      "ordercli": {
+        "enabled": false
+      },
+      "peekaboo": {
+        "enabled": false
+      },
+      "sag": {
+        "enabled": false
+      },
+      "session-logs": {
+        "enabled": false
+      },
+      "sherpa-onnx-tts": {
+        "enabled": false
+      },
+      "slack": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "summarize": {
+        "enabled": true
+      },
+      "things-mac": {
+        "enabled": false
+      },
+      "trello": {
+        "enabled": false
+      },
+      "video-frames": {
+        "enabled": false
+      },
+      "voice-call": {
+        "enabled": false
+      },
+      "wacli": {
+        "enabled": false
+      },
+      "xurl": {
+        "enabled": false
+      },
+      "himalaya": {
+        "enabled": false
+      }
+    }
+  },
+  "tools": {
+    "web": {
+      "search": {
+        "provider": "tavily",
+        "enabled": true,
+        "openaiCodex": {}
+      },
+      "fetch": {
+        "enabled": true
+      }
+    },
+    "profile": "coding",
+    "exec": {
+      "host": "gateway",
+      "security": "allowlist",
+      "ask": "on-miss",
+      "strictInlineEval": true
+    }
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "self-improvement": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        },
+        "bootstrap-extra-files": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "compaction-notifier": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "ui": {
+    "assistant": {
+      "name": "oboz"
+    }
+  },
+  "bindings": [
+    {
+      "type": "route",
+      "agentId": "volt",
+      "match": {
+        "channel": "telegram",
+        "accountId": "volt"
+      }
+    },
+    {
+      "type": "route",
+      "agentId": "mega",
+      "match": {
+        "channel": "telegram",
+        "accountId": "mega"
+      }
+    }
+  ],
+  "cron": {
+    "sessionRetention": "6h",
+    "runLog": {
+      "maxBytes": "1mb",
+      "keepLines": 500
+    }
+  },
+  "commands": {
+    "ownerAllowFrom": [
+      "telegram:1003927866195",
+      "telegram:8352035436",
+      "telegram:1003865331229",
+      "telegram:-1003865331229"
+    ]
+  },
+  "env": {
+    "vars": {
+      "NODE_COMPILE_CACHE": "/var/tmp/openclaw-compile-cache"
+    }
+  },
+  "messages": {
+    "groupChat": {
+      "visibleReplies": "message_tool"
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "mcp": {
+    "servers": {
+      "context-cooler": {
+        "command": "node",
+        "args": [
+          "/tmp/context-cooler-work-2/dist/server.js"
+        ],
+        "env": {
+          "OPENCLAW_HOME": "/root/.openclaw",
+          "CTX_WORKSPACE_ROOTS": "/root/.openclaw/workspace,/tmp/context-cooler-work-2",
+          "CTX_FILE_ROOTS": "/root/.openclaw/workspace,/tmp/context-cooler-work-2",
+          "CTX_ALLOW_SHELL_EXEC": 1,
+          "CTX_DELIVER_ENABLED": 0,
+          "CTX_FETCH_ALLOWLIST": "docs.openclaw.ai,raw.githubusercontent.com,github.com"
+        }
+      }
+    }
+  }
+}
