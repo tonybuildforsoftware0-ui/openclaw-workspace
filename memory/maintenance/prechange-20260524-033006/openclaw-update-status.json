@@ -1,0 +1,31 @@
+{
+  "update": {
+    "root": "/usr/lib/node_modules/openclaw",
+    "installKind": "package",
+    "packageManager": "pnpm",
+    "deps": {
+      "manager": "pnpm",
+      "status": "unknown",
+      "lockfilePath": "/usr/lib/node_modules/openclaw/pnpm-lock.yaml",
+      "markerPath": "/usr/lib/node_modules/openclaw/node_modules/.modules.yaml",
+      "reason": "lockfile missing"
+    },
+    "registry": {
+      "latestVersion": "2026.5.22",
+      "tag": "latest"
+    }
+  },
+  "channel": {
+    "value": "stable",
+    "source": "default",
+    "label": "stable (default)",
+    "config": null
+  },
+  "availability": {
+    "available": true,
+    "hasGitUpdate": false,
+    "hasRegistryUpdate": true,
+    "latestVersion": "2026.5.22",
+    "gitBehind": null
+  }
+}
