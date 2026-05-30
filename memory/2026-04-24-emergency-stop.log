@@ -1,0 +1,13 @@
+# EMERGENCY CREDIT STOP - Fri Apr 24 15:48:10 UTC 2026
+Activated at: Fri Apr 24 15:48:10 UTC 2026
+Reason: Daily spending exceeded emergency threshold
+
+## Actions Taken:
+1. Stopped all active sessions
+2. Set heartbeats to 6h (minimum)
+3. All agents using cheapest free model (gpt-oss-120b:free)
+4. Removed all fallback models
+
+## To Restore:
+Run: mv ~/.openclaw/openclaw.json.backup.emergency ~/.openclaw/openclaw.json
+Then: openclaw gateway restart

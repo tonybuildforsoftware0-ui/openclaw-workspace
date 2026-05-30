@@ -1,0 +1,38 @@
+## before
+
+### OpenClaw
+OpenClaw 2026.5.27 (27ae826)
+OpenClaw config is invalid
+File: ~/.openclaw/openclaw.json
+Problem:
+  - agents.defaults.memorySearch.remote.apiKey.id: Env secret reference id must match /^[A-Z][A-Z0-9_]{0,127}$/ (example: "OPENAI_API_KEY").
+
+Fix: openclaw doctor --fix
+Inspect: openclaw config validate
+Status, health, logs, and doctor commands still run with invalid config.
+
+### ClawHub Skills
+self-improving-agent  3.0.13
+weather  1.0.0
+github  1.0.0
+openclaw-skill-vetter  1.0.0
+skill-vetter  1.0.0
+openclaw-multi-search-engine  1.0.0
+nano-pdf  1.0.0
+session-logs  1.0.0
+summarize-1-0-0  1.0.0
+polymarket-trade  1.0.6
+youtube-watcher  1.0.0
+blogwatcher  1.0.0
+desktop-control  1.0.0
+healthcheck  1.0.2
+self-improving  1.2.16
+ontology  1.0.4
+gog  1.0.0
+agentmail  1.1.1
+qmd  1.0.0
+1password  1.0.1
+20206-02-10-clawhub-summarize-1-0-0  1.0.0
+git-essentials  1.0.0
+agent-browser-clawdbot  0.1.0
+auto-updater  1.0.0

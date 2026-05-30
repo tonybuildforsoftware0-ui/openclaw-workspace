@@ -1,0 +1,8 @@
+OpenClaw config is invalid
+File: ~/.openclaw/openclaw.json
+Problem:
+  - agents.defaults.memorySearch.remote.apiKey.id: Env secret reference id must match /^[A-Z][A-Z0-9_]{0,127}$/ (example: "OPENAI_API_KEY").
+
+Fix: openclaw doctor --fix
+Inspect: openclaw config validate
+Status, health, logs, and doctor commands still run with invalid config.
